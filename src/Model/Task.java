@@ -9,7 +9,7 @@ public class Task
 	public Task()
 	{
 		this.isAffected = false;
-		this.executionTime = (int) (Math.random()*100);
+		this.executionTime = (int)(Math.random()*100)+1;
 	}
 	
 	public Task(int executionTime)
