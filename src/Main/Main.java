@@ -72,11 +72,15 @@ public class Main
 				model.getProcessorList().get(1).addTaskToProcessor(t2);
 				model.getProcessorList().get(1).addTaskToProcessor(t3);
 				model.globalTaskUpdate();
-				System.out.println(model.allTaskAffected());
+				System.out.println(model.allTaskAffected()); // Vérification que chacune des taches soit affectées
 				System.out.println("-------");
 				IntCouple ic = new IntCouple(0,0);
-				ic = model.one_Task_Taboo_Sucessor(t0);
-				System.out.println(" X : " + ic.getX() + " Y : " +  ic.getY());
+				ic = model.one_Task_Sucessor(t0);
+				// On donne une tache t0 à one_Task_Sucessor qui va cacluler toutes les 
+				// permutations possibles pour cette tache --> renvoit le couple d'entier représentant la
+				// permutation donnant un temps de fin d'éxécution des taches pour les processeurs.
+				// Ce temps est le minimum possible en permutant la tache donné à one_Task_Sucessor
+				System.out.println(" X : " + ic.getX() + " Y : " +  ic.getY()); 
 			}
 		}
 	}

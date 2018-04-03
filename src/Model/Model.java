@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 /**
+ * Représente un état avec un certain nombre de processeurs, un certain nombre de tache, 
+ * et certaines taches affectés à des processeurs
  * @author Marvin
  *
  */
@@ -104,7 +106,7 @@ public class Model
 	 * Renvoit le meilleur exchange possible pour 1 tache
 	 * @return
 	 */
-	public IntCouple one_Task_Taboo_Sucessor(Task t)
+	public IntCouple one_Task_Sucessor(Task t)
 	{
 		Model m = new Model(0, 0);
 		m.processorList = this.getProcessorList();
