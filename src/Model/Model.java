@@ -132,6 +132,7 @@ public class Model
 							ic.setY(m.getProcessorList().get(idProcessorT).getTaskList().get(positionT).getId());
 							idLongestProcessor = m.longestProcessor();
 							timeLongestProcessor = m.getProcessorList().get(idLongestProcessor).getTotalTime();
+							ic.setNewTotalTime(timeLongestProcessor);
 							System.out.println(timeLongestProcessor);
 						} 
 					}
