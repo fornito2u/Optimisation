@@ -2,22 +2,33 @@ package Model;
 
 public class Task 
 {
+	private int id;
 	private int executionTime;
 	private boolean isAffected;
-	private boolean idProcessorAffected;
-	
-	public Task()
+	private int idProcessorAffected;
+
+	public Task(int id)
 	{
+		this.id = id;
 		this.isAffected = false;
 		this.executionTime = (int)(Math.random()*100)+1;
 	}
 	
-	public Task(int executionTime)
+	public Task(int id, int executionTime)
 	{
+		this.id = id;
 		this.isAffected = false;
 		this.executionTime = executionTime;
 	}
 
+	public void update(Model m)
+	{
+		if(m != null && m.getTaskList() != null && m.getTaskList().get(this.id) != null)
+		{
+			m.getTaskList().set(this.id, this);
+		}
+	}
+	
 	public float getExecutionTime() 
 	{
 		return executionTime;
@@ -38,14 +49,24 @@ public class Task
 		this.isAffected = isAffected;
 	}
 
-	public boolean isIdProcessorAffected() 
+	public int getIdProcessorAffected() 
 	{
 		return idProcessorAffected;
 	}
 
-	public void setIdProcessorAffected(boolean idProcessorAffected) 
+	public void setIdProcessorAffected(int idProcessorAffected) 
 	{
 		this.idProcessorAffected = idProcessorAffected;
+	}
+	
+	public int getId() 
+	{
+		return id;
+	}
+
+	public void setId(int id) 
+	{
+		this.id = id;
 	}
 
 	@Override
@@ -53,7 +74,7 @@ public class Task
 	{
 		return "Task [executionTime=" + executionTime + ", isAffected=" + isAffected + ", idProcessorAffected="
 				+ idProcessorAffected + ", getExecutionTime()=" + getExecutionTime() + ", isAffected()=" + isAffected()
-				+ ", isIdProcessorAffected()=" + isIdProcessorAffected() + ", getClass()=" + getClass()
+				+ ", getIdProcessorAffected()=" + getIdProcessorAffected() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

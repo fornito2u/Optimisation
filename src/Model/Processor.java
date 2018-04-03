@@ -12,6 +12,23 @@ public class Processor
 		this.id = id;
 		this.taskList = new ArrayList<Task>();
 	}
+	
+	public int getTotalTime()
+	{
+		int totalTime = 0;
+		for(int i = 0; i < this.taskList.size(); ++i)
+		{
+			totalTime += this.taskList.get(i).getExecutionTime();
+		}
+		return totalTime;
+	}
+	
+	public void addTaskToProcessor(Task t)
+	{
+		t.setIdProcessorAffected(this.id);
+		t.setAffected(true);
+		this.taskList.add(t);
+	}
 
 	public ArrayList<Task> getTaskList() 
 	{
