@@ -136,8 +136,6 @@ public class Model
 							ic.setY(m.getProcessorList().get(idProcessorT).getTaskList().get(positionT).getId());
 							idLongestProcessor = m.longestProcessor();
 							timeLongestProcessor = m.getProcessorList().get(idLongestProcessor).getTotalTime();
-							//ic.setNewTotalTime(timeLongestProcessor);
-							System.out.println("BUG ici"+timeLongestProcessor);
 						} 
 					}
 				}
@@ -159,9 +157,6 @@ public class Model
 			int idProcessor2 = t2.getIdProcessorAffected();
 			int positionTask1 = this.processorList.get(idProcessor1).getTaskList().indexOf(t1);
 			int positionTask2 = this.processorList.get(idProcessor2).getTaskList().indexOf(t2);
-			//Pas besoin de supprimer de la liste, la fonction set remplace directement
-			//this.processorList.get(idProcessor1).getTaskList().remove(positionTask1);
-			//this.processorList.get(idProcessor2).getTaskList().remove(positionTask2);
 			t1.setIdProcessorAffected(idProcessor2);
 			t2.setIdProcessorAffected(idProcessor1);
 			this.processorList.get(idProcessor1).getTaskList().set(positionTask1, t2); // Ajoute le second task a la position du premier task dans le processeur du premier task
@@ -264,8 +259,8 @@ public class Model
 			{
 				stop = true;
 			}
+			echangeEffectue = 0;
 		}
-		System.out.println("Stop ICI");
 		return m;
 	}
 
