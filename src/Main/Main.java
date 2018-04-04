@@ -81,27 +81,28 @@ public class Main
 		}
 		else
 		{
-			if(model.getProcessorList().size() >= 2)
+			System.out.println("Taille de la liste taboo");
+			int tListTaboo=sc.nextInt();
+			while(tListTaboo <= 0) 
 			{
-				Task t0 = model.getTaskList().get(0);
-				Task t1 = model.getTaskList().get(1);
-				Task t2 = model.getTaskList().get(2);
-				Task t3 = model.getTaskList().get(3);
-				model.getProcessorList().get(0).addTaskToProcessor(t0);
-				model.getProcessorList().get(1).addTaskToProcessor(t1);
-				model.getProcessorList().get(1).addTaskToProcessor(t2);
-				model.getProcessorList().get(1).addTaskToProcessor(t3);
-				model.globalTaskUpdate();
-				System.out.println(model.allTaskAffected()); // Vérification que chacune des taches soit affectées
-				System.out.println("-------");
-				IntCouple ic = new IntCouple(0,0);
-				ic = model.one_Task_Sucessor(t0);
-				// On donne une tache t0 à one_Task_Sucessor qui va cacluler toutes les 
-				// permutations possibles pour cette tache --> renvoit le couple d'entier représentant la
-				// permutation donnant un temps de fin d'éxécution des taches pour les processeurs.
-				// Ce temps est le minimum possible en permutant la tache donné à one_Task_Sucessor
-				System.out.println(" X : " + ic.getX() + " Y : " +  ic.getY()); 
+				System.out.println("La taille de la liste taboo doit etre positive");
+				tListTaboo=sc.nextInt();
 			}
+			Model res = model.listTaboo(tListTaboo);
+			int max = -1;
+			int min = Integer.MAX_VALUE;
+			for(Processor p : res.getProcessorList()) 
+			{
+				if(p.getTotalTime() > max) 
+				{
+					max=p.getTotalTime();
+				}
+				if(p.getTotalTime() < min) 
+				{
+					min=p.getTotalTime();
+				}
+			}
+			System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
 		}
 	}
 

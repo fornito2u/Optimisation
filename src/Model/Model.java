@@ -21,6 +21,7 @@ public class Model
 	 */
 	public Model(int nbProcessor, int nbTask)
 	{
+		this.tabooList = new ArrayList<IntCouple>();
 		this.processorList = new ArrayList<Processor>();
 		this.taskList = new ArrayList<Task>();
 		for(int i = 0; i < nbProcessor; ++i)
@@ -135,8 +136,8 @@ public class Model
 							ic.setY(m.getProcessorList().get(idProcessorT).getTaskList().get(positionT).getId());
 							idLongestProcessor = m.longestProcessor();
 							timeLongestProcessor = m.getProcessorList().get(idLongestProcessor).getTotalTime();
-							ic.setNewTotalTime(timeLongestProcessor);
-							System.out.println(timeLongestProcessor);
+							//ic.setNewTotalTime(timeLongestProcessor);
+							System.out.println("BUG ici"+timeLongestProcessor);
 						} 
 					}
 				}
@@ -226,6 +227,48 @@ public class Model
 		}
 		return n;
 	}
+	
+	public Model listTaboo(int tListTaboo) 
+	{
+		this.initModel();
+		Model m = this;
+		IntCouple ic = new IntCouple(-1, -1);
+		int echangeEffectue = 0;
+		boolean stop = false;
+		while(stop == false && echangeEffectue>=0)
+		{
+			for(int i = 0; i < this.processorList.size(); ++i)
+			{
+				for(int j = 0; j < this.processorList.get(i).getTaskList().size(); ++j)
+				{
+					ic.setX(m.processorList.get(i).getTaskList().get(j).getId());
+					ic.setY(m.one_Task_Sucessor(m.processorList.get(i).getTaskList().get(j)).getY());	
+					if(ic.getY() != -1 && !m.tabooList.contains(ic))
+					{
+						echangeEffectue +=1;
+						if(m.tabooList.size() <= tListTaboo)
+						{
+							m.tabooList.add(ic);
+						}
+						else	
+						{
+							m.tabooList.set(0, ic);
+						}			
+						Task t1 = m.taskList.get(ic.getX());
+						Task t2 = m.taskList.get(ic.getY()); 
+						m.exchangeTask(t1, t2);
+					}
+				}
+			}
+			if(echangeEffectue == 0)
+			{
+				stop = true;
+			}
+		}
+		System.out.println("Stop ICI");
+		return m;
+	}
+
 	
 	public ArrayList<IntCouple> getTabooList() 
 	{
