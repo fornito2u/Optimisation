@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import Model.IntCouple;
 import Model.Model;
+import Model.Processor;
 import Model.Task;
 
 /**
@@ -27,7 +28,7 @@ public class Main
 		System.out.println("How many processor ?");
 		s1 = sc.nextLine();
 		i1 = Integer.parseInt(s1);
-		if(i1 < 0)
+		while(i1 < 0)
 		{
 			System.out.println("Incorrect value, try again");
 			s1 = sc.nextLine();
@@ -36,7 +37,7 @@ public class Main
 		System.out.println("How many tasks ?");
 		s2 = sc.nextLine();
 		i2 = Integer.parseInt(s2);
-		if(i2 < 0)
+		while(i2 < 0)
 		{
 			System.out.println("Incorrect value, try again");
 			s2 = sc.nextLine();
@@ -48,7 +49,7 @@ public class Main
 				+ "									 - Enter 2 for a taboo research");
 		s3 = sc.nextLine();
 		i3 = Integer.parseInt(s3);
-		if(i3 < 1 || i3 > 3)
+		while(i3 < 1 || i3 > 3)
 		{
 			System.out.println("Incorrect value, try again");
 			s3 = sc.nextLine();
@@ -57,7 +58,26 @@ public class Main
 		
 		if(i3 == 1)
 		{
-			System.out.println("Yolo 1");
+			
+			System.out.println("Temperature de depart");
+			int nbIt=sc.nextInt();
+			while(nbIt <0) {
+				System.out.println("La temperature de depart doit etre positive");
+				nbIt=sc.nextInt();
+			}
+			Model res=model.recuitSimule(nbIt);
+			int max=-1;
+			int min=Integer.MAX_VALUE;
+			for(Processor p : res.getProcessorList()) {
+				if(p.getTotalTime()>max) {
+					max=p.getTotalTime();
+				}
+				if(p.getTotalTime()<min) {
+					min=p.getTotalTime();
+				}
+			}
+			System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
+			
 		}
 		else
 		{

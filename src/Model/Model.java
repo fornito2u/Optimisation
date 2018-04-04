@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Représente un état avec un certain nombre de processeurs, un certain nombre de tache, 
@@ -115,7 +116,7 @@ public class Model
 		int idLongestProcessor = m.longestProcessor(); 
 		int timeLongestProcessor = m.getProcessorList().get(idLongestProcessor).getTotalTime(); // Temps total du processeur le plus long
 		IntCouple ic = new IntCouple(t.getId(), -1);
-		if(this.allTaskAffected() == true)
+		if(this.allTaskAffected())
 		{
 			for(int i = 0; i < this.processorList.size(); ++i)
 			{
@@ -157,12 +158,13 @@ public class Model
 			int idProcessor2 = t2.getIdProcessorAffected();
 			int positionTask1 = this.processorList.get(idProcessor1).getTaskList().indexOf(t1);
 			int positionTask2 = this.processorList.get(idProcessor2).getTaskList().indexOf(t2);
-			this.processorList.get(idProcessor1).getTaskList().remove(positionTask1);
-			this.processorList.get(idProcessor2).getTaskList().remove(positionTask2);
+			//Pas besoin de supprimer de la liste, la fonction set remplace directement
+			//this.processorList.get(idProcessor1).getTaskList().remove(positionTask1);
+			//this.processorList.get(idProcessor2).getTaskList().remove(positionTask2);
 			t1.setIdProcessorAffected(idProcessor2);
 			t2.setIdProcessorAffected(idProcessor1);
-			this.processorList.get(idProcessor1).getTaskList().add(positionTask1, t2); // Ajoute le second task a la position du premier task dans le processeur du premier task
-			this.processorList.get(idProcessor2).getTaskList().add(positionTask2, t1); // Ajoute le premoer task a la position du second task dans le processeur du second task	
+			this.processorList.get(idProcessor1).getTaskList().set(positionTask1, t2); // Ajoute le second task a la position du premier task dans le processeur du premier task
+			this.processorList.get(idProcessor2).getTaskList().set(positionTask2, t1); // Ajoute le premoer task a la position du second task dans le processeur du second task	
 			return true;
 		}
 		else
@@ -170,6 +172,59 @@ public class Model
 			System.out.println("You tried to exchange a task with himself !");
 			return false;
 		}
+	}
+	public Model successeur(Model mod) {
+		Model m=new Model(mod.getProcessorList().size(),mod.getTaskList().size());
+		m.initModel();
+		if(m.allTaskAffected()) {
+			Random r=new Random();
+			int swapTask1=r.nextInt(m.getTaskList().size());
+			int swapTask2=r.nextInt(m.getTaskList().size());
+			while(swapTask1==swapTask2 || m.getTaskList().get(swapTask1).getIdProcessorAffected()==m.getTaskList().get(swapTask2).getIdProcessorAffected()) {
+				swapTask1=r.nextInt(m.getTaskList().size());
+				swapTask2=r.nextInt(m.getTaskList().size());
+			}
+			m.exchangeTask(m.getTaskList().get(swapTask1), m.getTaskList().get(swapTask2));
+			m.globalTaskUpdate();
+		}else {
+			return mod;
+		}
+		return m;
+	}
+	
+	public int valeur(Model mod) {
+		return mod.getProcessorList().get(mod.longestProcessor()).getTotalTime()/25;
+	}
+	
+	public void initModel() {
+		for(int i=0;i<taskList.size();i++) {
+			if(!taskList.get(i).isAffected()) {
+				processorList.get((i%processorList.size())).addTaskToProcessor(taskList.get(i));
+			}
+		}
+		globalTaskUpdate();
+	}
+	
+	
+	public Model recuitSimule(int nbIteration) {
+		this.initModel();
+		Model n=this;
+		Model suc;
+		double T;
+		int compare;
+		for(int i=0;i<nbIteration;i++) {
+			T=0.09*i;
+			suc=successeur(n);
+			compare=valeur(n)-valeur(suc);
+			if(compare>=0) {
+				n=suc;
+			}else {
+				if(Math.random()>Math.exp((compare/T))){
+					n=suc;
+				}
+			}
+		}
+		return n;
 	}
 	
 	public ArrayList<IntCouple> getTabooList() 
