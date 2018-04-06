@@ -46,6 +46,7 @@ public class Main
 		Model model = new Model(i1, i2);
 		System.out.println("Système de base :");
 		model.initModel();
+		Model base = model;
 		model.displaySituation();
 		System.out.println("Choisir votre algorithme : Entrer 1 pour un recuit simulé ou entrer 2 pour une recherche taboo");
 		s3 = sc.nextLine();
@@ -108,6 +109,39 @@ public class Main
 			System.out.println("Système optimisé :");
 			res.displaySituation();
 			System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
+			boolean keepGoing = true;
+			while(keepGoing == true)
+			{
+				System.out.println("Voulez-vous changer la taille de la liste taboo ? 1 = Oui | 2 = Non");
+				tListTaboo=sc.nextInt();
+				while(tListTaboo <1 || tListTaboo > 2) 
+				{
+					System.out.println("Réponse incorrecte, 1 = Oui | 2 = Non");
+					tListTaboo=sc.nextInt();
+				}
+				if(tListTaboo == 2)
+				{
+					System.out.println("Fin de l'optimisation");
+					keepGoing = false;
+					break;
+				}
+				else
+				{
+					System.out.println("Nouvelle taille de la liste taboo ?");
+					tListTaboo=sc.nextInt();
+					while(tListTaboo <= 0) 
+					{
+						System.out.println("La taille de la liste taboo doit etre positive");
+						tListTaboo=sc.nextInt();
+					}
+					res = base;
+					res = res.listTaboo(tListTaboo);
+					System.out.println("Système optimisé :");
+					res.displaySituation();
+					System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
+				}
+			}
+			
 		}
 	}
 
