@@ -25,33 +25,34 @@ public class Main
 		int i2 = -1;
 		String s3 = "";
 		int i3 = -1;
-		System.out.println("How many processor ?");
+		System.out.println("Combien de processeurs ?");
 		s1 = sc.nextLine();
 		i1 = Integer.parseInt(s1);
 		while(i1 < 0)
 		{
-			System.out.println("Incorrect value, try again");
+			System.out.println("Valeur incorrecte");
 			s1 = sc.nextLine();
 			i1 = Integer.parseInt(s1);
 		}
-		System.out.println("How many tasks ?");
+		System.out.println("Combien de tâches ?");
 		s2 = sc.nextLine();
 		i2 = Integer.parseInt(s2);
 		while(i2 < 0)
 		{
-			System.out.println("Incorrect value, try again");
+			System.out.println("Valeur incorrecte");
 			s2 = sc.nextLine();
 			i2 = Integer.parseInt(s2);
 		}
 		Model model = new Model(i1, i2);
-		
-		System.out.println("Choose your algorithme : - Enter 1 for a simulated recuit"
-				+ "									 - Enter 2 for a taboo research");
+		System.out.println("Système de base :");
+		model.initModel();
+		model.displaySituation();
+		System.out.println("Choisir votre algorithme : Entrer 1 pour un recuit simulé ou entrer 2 pour une recherche taboo");
 		s3 = sc.nextLine();
 		i3 = Integer.parseInt(s3);
 		while(i3 < 1 || i3 > 3)
 		{
-			System.out.println("Incorrect value, try again");
+			System.out.println("Valeur incorrect");
 			s3 = sc.nextLine();
 			i3 = Integer.parseInt(s3);
 		}
@@ -76,12 +77,14 @@ public class Main
 					min=p.getTotalTime();
 				}
 			}
+			System.out.println("Système optimisé :");
+			res.displaySituation();
 			System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
 			
 		}
 		else
 		{
-			System.out.println("Taille de la liste taboo");
+			System.out.println("Taille de la liste taboo ?");
 			int tListTaboo=sc.nextInt();
 			while(tListTaboo <= 0) 
 			{
@@ -102,6 +105,8 @@ public class Main
 					min=p.getTotalTime();
 				}
 			}
+			System.out.println("Système optimisé :");
+			res.displaySituation();
 			System.out.println("Le temps total sera de : "+max+" secondes \nLe processeur qui finira en premier aura mis : "+min+" secondes.");
 		}
 	}

@@ -31,6 +31,7 @@ public class Model
 		for(int j = 0; j < nbTask; ++j)
 		{
 			Task t = null;
+			/*
 			if( j == 0)
 			{
 				t = new Task(j, 50);
@@ -42,9 +43,26 @@ public class Model
 			if(j > 1)
 			{
 				t = new Task(j, 100);
-			}
+			}*/
+			t = new Task(j, (int)(Math.random()*1000)+1);
 			this.taskList.add(t);
 		}
+	}
+	
+	public void displaySituation()
+	{
+		String s = "--------------------------------------------------\n";
+		for(int i = 0; i < this.processorList.size(); ++i)
+		{
+			s+= "Processor n°"+this.processorList.get(i).getId()+" : ";
+			for(int j = 0; j < this.processorList.get(i).getTaskList().size(); ++j)
+			{
+				s+="Tâche "+this.processorList.get(i).getTaskList().get(j).getId()+"("+this.processorList.get(i).getTaskList().get(j).getExecutionTime()+"s)"+" | ";
+			}
+			s+="\n";
+		}
+		s+="--------------------------------------------------";
+		System.out.println(s);
 	}
 	
 	/**
