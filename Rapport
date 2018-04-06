@@ -1,0 +1,88 @@
+Rapport :
+
+Membre du groupe :
+	- Fornito Marvin
+	- Darmois Victor
+
+Le diagramme de classe est à la racine du projet : "Diagramme de classe.ucls".
+Les deux methodes implementées sont le recuit simulé et la recherche tabou.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Modélisation choisie :
+
+
+- Processeur :
+
+Représenté par la classe Processor.java 
+Chaque processeur contient la liste des taches qui lui sont affectés ainsi qu'un id sous forme d'entier 
+pour les differencier.
+
+- Tache :
+
+Représenté par la classe Task.java
+Une tache est definie par sont id (entier), son temps d'execution (entier), l'id du processeur auquel elle est affectée
+ainsi qu'un booléen qui est vrai si la tache est affectée a un processeur. Le temps d'éxécution est généré
+aléatoirement via un math.random lors de la construction de la tâche.
+
+- Etat :
+
+La classe model.java permet de representer un etat.
+Chaque model possède une liste de processeur et une liste de tache.
+Pour la recherche tabou, on ajoute une liste supplementaire de couple d'entier (ArrayList<IntCouple>).
+Un état connait donc sa propre liste taboo actuel (dans le cas ou on utilise le recuit simulé, cette liste reste vide)
+Il est possible d'utiliser les deux méthodes d'optimisation sur chaque model. (Recuit Simulé/Recherche Taboo)
+
+- Permutation d'une tâche avec une autre :
+
+La classe IntCouple.java permet de retenir un couple d'entier. Ce couple représente l'id des deux tâches à échanger. 
+Cette classe est principalement utilisée dans la recherche tabou. 
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+Méthode d'optimisation :
+
+
+- Recuit simulé :
+
+La fonction objectif est definie par la durée du processeur qui finira en dernier, que l'on veut minimiser.
+Le critère d'arret est la chute de temperature.
+Le successeur d'un etat, est l'etat lui meme avec un echange de tache entre deux processeur different.
+
+A chaque étape, l'algorithme compare l'etat actuel avec un successeur :
+-Si la valeur de la fonction objetif a diminué le successeur devient l'etat actuel.
+-Si la valeur a augmenté, le successeur devient l'etat actuel avec une probabilité dependante
+de la temperature et de la valeur de la fonction objectif.
+	
+Une fois le système completement refroidit il s'arrete et renvoie l'etat le plus optimal trouvé.
+
+La méthode du recuit simulé necessite une temperature de depart relativement élevée.
+Il existe toujours une probabilité de se placer dans un etat moins optimal a la fin des calculs.
+Cette méthode possède de nombreux paramètres, il est donc difficile de trouver des valeurs de départ.
+Une amélioration, possible est de toujours échanger une tache du processeur le plus long.
+
+
+- Recherche tabou :
+
+La fonction objectif est definie par la durée du processeur qui finira en dernier, que l'on veut minimiser.
+L'optimisation s'arrête au moment ou aucun échange diminuant le temps total n'est possible.
+Le successeur d'un etat, est l'etat lui meme avec un echange de tache entre deux processeur different.
+La liste taboo est une liste de couple d'entier (1 Couple = 2 Entier = ID des deux tâches à permuter).
+
+A chaque étape, l'algorithme compare l'etat actuel avec un successeur :
+	- Si la valeur de la fonction objetif a diminué le successeur devient l'etat actuel.
+	- Sinon on cherche une autre permutation de tâche possible
+	- Si aucune permutation n'est trouvé, l'optimisation est terminé.
+	
+La taille de la liste taboo est un facteur important. Si  la liste est trop grande, le risque de ne pas trouver
+l'optimum global devient important. Si la liste est trop petite, l'algorithme est ralentit.
+La solution que nous avons employé est de travaillé avec une liste taboo a longeur constante. 
+C'est donc un système "last-in-first-out" --> Quand la liste est remplie, on supprime le premier couple de la liste
+rendant l'échange de ce même couple désormais possible.
+
+
+
+
+
+
