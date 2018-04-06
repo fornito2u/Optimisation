@@ -329,7 +329,8 @@ public class Model
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Model [processorList=" + processorList + ", taskList=" + taskList + ", tabooList=" + tabooList
 				+ ", allTaskAffected()=" + allTaskAffected() + ", longestProcessor()=" + longestProcessor()
 				+ ", getTabooList()=" + getTabooList() + ", getProcessorList()=" + getProcessorList()

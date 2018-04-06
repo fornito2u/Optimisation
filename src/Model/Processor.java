@@ -53,8 +53,8 @@ public class Processor
 	@Override
 	public String toString() 
 	{
-		return "Processor [taskList=" + taskList + ", id=" + id + ", getTaskList()=" + getTaskList() + ", getId()="
-				+ getId() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+		return "Processor [taskList=" + taskList + ", id=" + id + ", getTotalTime()=" + getTotalTime()
+				+ ", getTaskList()=" + getTaskList() + ", getId()=" + getId() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

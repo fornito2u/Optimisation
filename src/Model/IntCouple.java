@@ -37,7 +37,8 @@ public class IntCouple
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "IntCouple [x=" + x + ", y=" + y + ", getX()=" + getX() + ", getY()=" + getY() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}

@@ -72,9 +72,10 @@ public class Task
 	@Override
 	public String toString() 
 	{
-		return "Task [executionTime=" + executionTime + ", isAffected=" + isAffected + ", idProcessorAffected="
-				+ idProcessorAffected + ", getExecutionTime()=" + getExecutionTime() + ", isAffected()=" + isAffected()
-				+ ", getIdProcessorAffected()=" + getIdProcessorAffected() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Task [id=" + id + ", executionTime=" + executionTime + ", isAffected=" + isAffected
+				+ ", idProcessorAffected=" + idProcessorAffected + ", getExecutionTime()=" + getExecutionTime()
+				+ ", isAffected()=" + isAffected() + ", getIdProcessorAffected()=" + getIdProcessorAffected()
+				+ ", getId()=" + getId() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 }
