@@ -5,3 +5,65 @@ Membre du groupe :
 	- Darmois Victor
 
 Le diagramme de classe est à la racine du projet : "Diagramme de classe.ucls".
+
+
+
+Les deux methodes implementées sont le recuit simulé et la recherche tabou :
+
+
+Modélisation choisie :
+
+La classe IntCouple.java permet de retenir un couple de tache, afin de les echanger par exemple, elle est principalement utilisée dans la recherche tabou.
+
+
+Processeur :
+
+Représenté par la classe Processor.java 
+Chaque processeur contient la liste des taches qui lui sont affectés .
+Ainsi qu'un id sous forme d'entier pour les differencier.
+
+
+Tache :
+
+Représenté par la classe Task.java
+Une tache est definie par sont id (entier), son temps d'execution (entier), l'id du processeur auquel elle est affectée
+ainsi qu'un booléen vrai si la tache est affectée a un processeur, faux sinon.
+
+Etat :
+
+La classe model.java permet de representer un etat.
+Chaque model possède une liste de processeur et une liste de tache.
+Pour la recherche tabou, on ajoute une liste supplementaire de couple de tache (IntCouple.java).
+Il est possible d'utiliser les deux méthodes d'optimisation sur chaque model.
+
+
+Recuit simulé :
+
+La fonction objectif est definie par la durée du processeur qui finira en dernier, que l'on veut minimiser.
+Le critère d'arret est la chute de temperature.
+Le successeur d'un etat, est l'etat lui meme avec un echange de tache entre deux processeur different.
+A chaque étape, l'algorithme compare l'etat actuel avec un successeur :
+	-Si la valeur de la fonction objetif a diminué le successeur devient l'etat actuel.
+
+	-Si la valeur a augmenté, le successeur devient l'etat actuel avec une probabilité dependante
+	de la temperature et de la valeur de la fonction objectif.
+	
+Une fois le système completement refroidit il s'arrete et renvoie l'etat le plus optimal trouvé.
+
+
+Observation méthode recuit simulé :
+
+La méthode du recuit simulé necessite une temperature de depart relativement élevée.
+Il existe toujours une probabilité de se placer dans un etat moins optimal a la fin des calculs.
+Cette méthode possède de nombreux paramètres, il est donc difficile de trouver des valeurs de départ.
+Une amélioration, possible est de toujours échanger une tache du processeur le plus long.
+
+Recherche tabou :
+
+
+
+
+
+
+
+
