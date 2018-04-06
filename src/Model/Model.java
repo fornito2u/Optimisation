@@ -54,7 +54,7 @@ public class Model
 		String s = "--------------------------------------------------\n";
 		for(int i = 0; i < this.processorList.size(); ++i)
 		{
-			s+= "Processor n°"+this.processorList.get(i).getId()+" : ";
+			s+= "Processeur n°"+this.processorList.get(i).getId()+" : ";
 			for(int j = 0; j < this.processorList.get(i).getTaskList().size(); ++j)
 			{
 				s+="Tâche "+this.processorList.get(i).getTaskList().get(j).getId()+"("+this.processorList.get(i).getTaskList().get(j).getExecutionTime()+"s)"+" | ";
